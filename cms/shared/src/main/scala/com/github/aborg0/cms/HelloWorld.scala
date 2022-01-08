@@ -1,4 +1,4 @@
-package cms
+package com.github.aborg0.cms
 
 import java.io.IOException
 

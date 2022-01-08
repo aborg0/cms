@@ -1,4 +1,4 @@
-package cms
+package com.github.aborg0.cms
 
 import zio._
 import zio.console._
@@ -8,7 +8,7 @@ import zio.test.environment._
 
 object HelloWorld {
   def sayHello: ZIO[Console, Nothing, Unit] =
-    console.putStrLn("Hello, World!")
+    console.putStrLn("Hello, World!").orDie
 }
 
 object HelloWorldSpec extends DefaultRunnableSpec {
