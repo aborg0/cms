@@ -3,7 +3,7 @@ package com.github.aborg0.cms
 import java.io.IOException
 
 import zio.console._
-import zio.{ App, ExitCode, URIO, ZIO }
+import zio.{App, ExitCode, URIO, ZIO}
 
 object HelloWorld extends App {
 

@@ -36,7 +36,7 @@ addCommandAlias(
   ";cmsNative/test:compile"
 )
 
-val zioVersion = "1.0.13"// "2.0.0-RC1"
+val zioVersion = "1.0.13" // "2.0.0-RC1"
 
 lazy val root = project
   .in(file("."))
@@ -51,20 +51,20 @@ lazy val root = project
     docs
   )
 
-lazy val cms = crossProject(/*JSPlatform,*/ JVMPlatform/*, NativePlatform*/)
+lazy val cms = crossProject( /*JSPlatform,*/ JVMPlatform /*, NativePlatform*/ )
   .in(file("cms"))
   .settings(stdSettings("cms"))
   .settings(crossProjectSettings)
   .settings(buildInfoSettings("cms"))
   .settings(
     libraryDependencies ++= Seq(
-      "dev.zio" %%% "zio"          % zioVersion,
-      "dev.zio" %%% "zio-logging"  % "0.5.14",
+      "dev.zio" %%% "zio"                 % zioVersion,
+      "dev.zio" %%% "zio-logging"         % "0.5.14",
 //      "dev.zio" %%% "zio-telemetry"% "0.9.0",
-      "dev.zio" %%% "zio-opentelemetry" % "0.9.0",
+      "dev.zio" %%% "zio-opentelemetry"   % "0.9.0",
       "dev.zio" %%% "zio-config-magnolia" % "1.0.10",
-      "dev.zio" %%% "zio-test"     % zioVersion % Test,
-      "dev.zio" %%% "zio-test-sbt" % zioVersion % Test
+      "dev.zio" %%% "zio-test"            % zioVersion % Test,
+      "dev.zio" %%% "zio-test-sbt"        % zioVersion % Test
     )
   )
   .settings(testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"))

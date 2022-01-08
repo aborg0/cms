@@ -1,5 +1,5 @@
 addSbtPlugin("ch.epfl.scala"                     % "sbt-bloop"                     % "1.4.8")
-addSbtPlugin("ch.epfl.scala"                     % "sbt-scalafix"                  % "0.9.29")
+addSbtPlugin("ch.epfl.scala"                     % "sbt-scalafix"                  % "0.9.33")
 addSbtPlugin("com.eed3si9n"                      % "sbt-buildinfo"                 % "0.10.0")
 addSbtPlugin("com.eed3si9n"                      % "sbt-unidoc"                    % "0.4.3")
 addSbtPlugin("com.geirsson"                      % "sbt-ci-release"                % "1.5.7")
@@ -18,4 +18,4 @@ addSbtPlugin("pl.project13.scala"                % "sbt-jmh"                    
 
 libraryDependencies += "org.snakeyaml" % "snakeyaml-engine" % "2.3"
 
-addSbtPlugin("se.marcuslonnberg"                 % "sbt-docker"                    % "1.8.2")
+addSbtPlugin("se.marcuslonnberg" % "sbt-docker" % "1.8.2")
