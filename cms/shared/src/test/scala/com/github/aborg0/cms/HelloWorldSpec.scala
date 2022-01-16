@@ -1,22 +1,21 @@
 package com.github.aborg0.cms
 
-import zio._
-import zio.console._
-import zio.test.Assertion._
-import zio.test._
-import zio.test.environment._
+import zio.*
+import zio.Console
+import zio.test.Assertion.*
+import zio.test.*
 
 object HelloWorld {
   def sayHello: ZIO[Console, Nothing, Unit] =
-    console.putStrLn("Hello, World!").orDie
+    Console.printLine("Hello, World!").orDie
 }
 
 object HelloWorldSpec extends DefaultRunnableSpec {
 
-  import HelloWorld._
+  import HelloWorld.*
 
   def spec: ZSpec[Environment, Failure] = suite("HelloWorldSpec")(
-    testM("sayHello correctly displays output") {
+    test("sayHello correctly displays output") {
       for {
         _      <- sayHello
         output <- TestConsole.output

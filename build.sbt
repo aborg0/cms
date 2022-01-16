@@ -36,11 +36,12 @@ addCommandAlias(
   ";cmsNative/test:compile"
 )
 
-val zioVersion = "1.0.13" // "2.0.0-RC1"
+val zioVersion = "2.0.0-RC1" // "1.0.13"
 
 lazy val root = project
   .in(file("."))
   .settings(
+    name := "cms",
     publish / skip := true,
     unusedCompileDependenciesFilter -= moduleFilter("org.scala-js", "scalajs-library")
   )
@@ -56,13 +57,27 @@ lazy val cms = crossProject( /*JSPlatform,*/ JVMPlatform /*, NativePlatform*/ )
   .settings(stdSettings("cms"))
   .settings(crossProjectSettings)
   .settings(buildInfoSettings("cms"))
+  .settings(scalacOptions += "-Xsource:3")
   .settings(
     libraryDependencies ++= Seq(
       "dev.zio" %%% "zio"                 % zioVersion,
-      "dev.zio" %%% "zio-logging"         % "0.5.14",
+      "dev.zio" %%% "zio-cache"           % "0.2.0-RC1",
+      "dev.zio" %%% "zio-concurrent"      % zioVersion,
+      "dev.zio" %%% "zio-config-gen"      % "3.0.0-RC1",
+//      "dev.zio" %%% "zio-logging"         % "0.5.14",
 //      "dev.zio" %%% "zio-telemetry"% "0.9.0",
-      "dev.zio" %%% "zio-opentelemetry"   % "0.9.0",
-      "dev.zio" %%% "zio-config-magnolia" % "1.0.10",
+//      "dev.zio" %%% "zio-opentelemetry"   % "0.9.0",
+      "dev.zio" %%% "zio-config-magnolia" % "3.0.0-RC1", // "1.0.10",
+      "dev.zio" %%% "zio-json-interop-http4s" % "0.3.0-RC1-1",
+      "dev.zio" %%% "zio-optics"          % "0.2.0-RC1",
+      "dev.zio" %%% "zio-process"         % "0.7.0-RC1",
+      "dev.zio" %%% "zio-query"           % "0.3.0-RC1",
+      "io.getquill"          %%% "quill-jdbc-zio" % "3.12.0",
+//      "io.github.kitlangton" %%% "zio-magic"      % "0.3.11",
+      "org.postgresql"       %  "postgresql"     % "42.3.1",
+      "dev.zio" %%% "zio-schema-json"     % "0.2.0-RC1",
+      "dev.zio" %%% "zio-schema-derivation" % "0.2.0-RC1",
+      "dev.zio" %%% "zio-schema-zio-test" % "0.2.0-RC1-1" % Test,
       "dev.zio" %%% "zio-test"            % zioVersion % Test,
       "dev.zio" %%% "zio-test-sbt"        % zioVersion % Test
     )

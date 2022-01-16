@@ -1,8 +1,8 @@
 # cms
 
-| Project Stage | CI | Release | Snapshot | Discord |
-| --- | --- | --- | --- | --- |
-| [![Project stage][Badge-Stage]][Link-Stage-Page] | [![CI][Badge-GithubAction]][Link-GithubAction] | [![Release Artifacts][Badge-SonatypeReleases]][Link-SonatypeReleases] | [![Snapshot Artifacts][Badge-SonatypeSnapshots]][Link-SonatypeSnapshots] | [![Badge-Discord]][Link-Discord] |
+| Project Stage | CI | Release  | Snapshot | Discord  |
+| --- | --- |----------|----------|----------|
+| [![Project stage][Badge-Stage]][Link-Stage-Page] | [![CI][Badge-GithubAction]][Link-GithubAction] | None yet | None yet | None yet |
 
 # Summary
 TODO: Tagline
