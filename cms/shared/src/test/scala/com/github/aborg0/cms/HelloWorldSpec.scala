@@ -1,9 +1,8 @@
 package com.github.aborg0.cms
 
-import zio.*
-import zio.Console
 import zio.test.Assertion.*
 import zio.test.*
+import zio.{Console, *}
 
 object HelloWorld {
   def sayHello: ZIO[Console, Nothing, Unit] =
