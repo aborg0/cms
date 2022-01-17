@@ -71,14 +71,16 @@ lazy val cms = crossProject( /*JSPlatform,*/ JVMPlatform /*, NativePlatform*/ )
       "dev.zio"      %%% "zio-optics"              % "0.2.0-RC1",
       "dev.zio"      %%% "zio-process"             % "0.7.0-RC1",
       "dev.zio"      %%% "zio-query"               % "0.3.0-RC1",
-      "io.getquill"  %%% "quill-jdbc-zio"          % "3.12.0",
-//      "io.github.kitlangton" %%% "zio-magic"      % "0.3.11",
-      "org.postgresql" % "postgresql"              % "42.3.1",
       "dev.zio"      %%% "zio-schema-json"         % "0.2.0-RC1",
       "dev.zio"      %%% "zio-schema-derivation"   % "0.2.0-RC1",
       "dev.zio"      %%% "zio-schema-zio-test"     % "0.2.0-RC1-1" % Test,
+      "dev.zio"      %%% "zio-streams"             % zioVersion,
       "dev.zio"      %%% "zio-test"                % zioVersion    % Test,
-      "dev.zio"      %%% "zio-test-sbt"            % zioVersion    % Test
+      "dev.zio"      %%% "zio-test-sbt"            % zioVersion    % Test,
+      "io.d11"       %%% "zhttp"                   % zioVersion,
+      "io.getquill"  %%% "quill-jdbc-zio"          % "3.12.0",
+//      "io.github.kitlangton" %%% "zio-magic"      % "0.3.11",
+      "org.postgresql" % "postgresql"              % "42.3.1"
     )
   )
   .settings(testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"))
