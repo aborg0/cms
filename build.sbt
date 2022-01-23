@@ -40,7 +40,7 @@ addCommandAlias(
   ";cmsNative/test:compile"
 )
 
-val zioVersion = "2.0.0-RC1" // "1.0.13"
+val zioVersion = "1.0.13"
 
 lazy val root = project
   .in(file("."))
@@ -64,26 +64,26 @@ lazy val cms = crossProject( /*JSPlatform,*/ JVMPlatform /*, NativePlatform*/ )
   .settings(
     libraryDependencies ++= Seq(
       "dev.zio"      %%% "zio"                     % zioVersion,
-      "dev.zio"      %%% "zio-cache"               % "0.2.0-RC1",
+      "dev.zio"      %%% "zio-cache"               % "0.1.0",
       "dev.zio"      %%% "zio-concurrent"          % zioVersion,
-      "dev.zio"      %%% "zio-config-gen"          % "3.0.0-RC1",
+      "dev.zio"      %%% "zio-config-gen"          % "2.0.0",
 //      "dev.zio" %%% "zio-logging"         % "0.5.14",
 //      "dev.zio" %%% "zio-telemetry"% "0.9.0",
 //      "dev.zio" %%% "zio-opentelemetry"   % "0.9.0",
-      "dev.zio"      %%% "zio-config-magnolia"     % "3.0.0-RC1", // "1.0.10",
-      "dev.zio"      %%% "zio-json-interop-http4s" % "0.3.0-RC1-1",
-      "dev.zio"      %%% "zio-optics"              % "0.2.0-RC1",
-      "dev.zio"      %%% "zio-process"             % "0.7.0-RC1",
-      "dev.zio"      %%% "zio-query"               % "0.3.0-RC1",
-      "dev.zio"      %%% "zio-schema-json"         % "0.2.0-RC1",
-      "dev.zio"      %%% "zio-schema-derivation"   % "0.2.0-RC1",
-      "dev.zio"      %%% "zio-schema-zio-test"     % "0.2.0-RC1-1" % Test,
+      "dev.zio"      %%% "zio-config-magnolia"     % "2.0.0",
+//      "dev.zio"      %%% "zio-json-interop-http4s" % "0.3.0-RC1-1",
+      "dev.zio"      %%% "zio-optics"              % "0.1.0",
+      "dev.zio"      %%% "zio-process"             % "0.6.0",
+      "dev.zio"      %%% "zio-query"               % "0.2.0",
+      "dev.zio"      %%% "zio-schema-json"         % "0.1.7",
+      "dev.zio"      %%% "zio-schema-derivation"   % "0.1.7",
+      "dev.zio"      %%% "zio-schema-zio-test"     % "0.1.7" % Test,
       "dev.zio"      %%% "zio-streams"             % zioVersion,
       "dev.zio"      %%% "zio-test"                % zioVersion    % Test,
       "dev.zio"      %%% "zio-test-sbt"            % zioVersion    % Test,
-      "io.d11"       %%% "zhttp"                   % zioVersion,
-      "io.getquill"  %%% "quill-jdbc-zio"          % "3.12.0",
-//      "io.github.kitlangton" %%% "zio-magic"      % "0.3.11",
+      "io.d11"       %%% "zhttp"                   % "1.0.0.0-RC22",
+      "io.getquill"  %%% "quill-jdbc-zio"          % "3.13.0",
+      "io.github.kitlangton" %%% "zio-magic"      % "0.3.11",
       "org.postgresql" % "postgresql"              % "42.3.1"
     )
   )

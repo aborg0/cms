@@ -4,18 +4,21 @@ import com.github.aborg0.cms.params.Database
 import zhttp.http.*
 import zhttp.service.server.ServerChannelFactory
 import zhttp.service.{EventLoopGroup, Server}
-import zio.Console.*
+import zio.console.Console.*
 import zio.config.*
 import zio.config.typesafe.TypesafeConfigSource
-import zio.{Console, ExitCode, System, URIO, ZEnv, ZIO, ZIOAppDefault, config}
+import zio.console.{Console, getStrLn, putStrLn}
+import zio.system.*
+import zio.{ExitCode, URIO, ZEnv, ZIO, config}
 
 import java.io.{File, IOException}
+import scala.util.Try
 
 //import io.getquill.context.ZioJdbc.DataSourceLayer
 //import zio.config.magnolia.descriptor
-object HelloWorld extends ZIOAppDefault {
+object HelloWorld extends zio.App {
 
-  override def run: URIO[ZEnv, ExitCode] =
+  override def run(args: List[String]): URIO[ZEnv, ExitCode] =
     (for {
       _     <- application
       fi    <- myAppLogic.fork
@@ -30,11 +33,11 @@ object HelloWorld extends ZIOAppDefault {
     for {
       hoconFile <-
         ZIO
-          .from(TypesafeConfigSource.fromHoconFile(new File("./cms/shared/src/main/resources/application.conf")))
-          .mapError(t => ReadError.SourceError(t.getMessage))
+          .fromEither(Try(TypesafeConfigSource.fromHoconFile(new File(
+            "./cms/shared/src/main/resources/application.conf"))).toEither).orDie
 //      constant  <- ZIO.fromEither(TypesafeConfigSource.fromHoconString(s""))
-      env       <- ZIO.from(ConfigSource.fromSystemEnv()).mapError(t => ReadError.SourceError(t.getMessage))
-      sysProp   <- ZIO.from(ConfigSource.fromSystemProps()).mapError(t => ReadError.SourceError(t.getMessage))
+      env       <- ZIO.fromEither(Try(ConfigSource.fromSystemEnv()).toEither).orDie
+      sysProp   <- ZIO.fromEither(Try(ConfigSource.fromSystemProps()).toEither).orDie
       source     = hoconFile <> /*constant <>*/ env <> sysProp
     } yield (Database.config from source)
 
@@ -42,7 +45,7 @@ object HelloWorld extends ZIOAppDefault {
     for {
       desc        <- getDesc.mapError(_.prettyPrint())
       docs         = generateDocs(desc)
-      _           <- printLine(docs).orDie
+      _           <- putStrLn(docs.toString).orDie
       configValue <- config.read(desc).mapError(_.prettyPrint()).orDieWith { s =>
                        println(s)
                        new RuntimeException(s)
@@ -63,8 +66,8 @@ object HelloWorld extends ZIOAppDefault {
 
   val myAppLogic: ZIO[Console, IOException, Unit] =
     for {
-      _    <- printLine("Hello! What is your name?")
-      name <- readLine
-      _    <- printLine(s"Hello, $name, welcome to ZIO!")
+      _    <- putStrLn("Hello! What is your name?")
+      name <- getStrLn
+      _    <- putStrLn(s"Hello, $name, welcome to ZIO!")
     } yield ()
 }
