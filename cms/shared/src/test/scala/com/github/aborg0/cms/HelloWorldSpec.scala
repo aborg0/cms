@@ -1,7 +1,9 @@
 package com.github.aborg0.cms
 
+import zio.Console.ConsoleLive
 import zio.test.Assertion.*
 import zio.test.*
+import zio.test.Spec.empty.ZSpec
 import zio.{Console, *}
 
 object HelloWorld {
@@ -9,16 +11,16 @@ object HelloWorld {
     Console.printLine("Hello, World!").orDie
 }
 
-object HelloWorldSpec extends DefaultRunnableSpec {
+object HelloWorldSpec extends ZIOSpecDefault {
 
   import HelloWorld.*
 
-  def spec: ZSpec[Environment, Failure] = suite("HelloWorldSpec")(
+  def spec: Spec[TestEnvironment with Scope, Nothing] = suite("HelloWorldSpec")(
     test("sayHello correctly displays output") {
       for {
         _      <- sayHello
         output <- TestConsole.output
-      } yield assert(output)(equalTo(Vector("Hello, World!\n")))
+      } yield assertTrue(output == Vector("Hello, World!\n"))
     }
-  )
+  ).provideEnvironment(DefaultServices.live)
 }

@@ -15,16 +15,17 @@ import java.io.{File, IOException}
 //import zio.config.magnolia.descriptor
 object HelloWorld extends ZIOAppDefault {
 
-  override def run: URIO[ZEnv, ExitCode] =
+  override def run/*: URIO[ZEnv, ExitCode]*/ =
     (for {
       _     <- application
       fi    <- myAppLogic.fork
-      fiber <- (Server.app(httpApp.silent) ++ Server.port(8765)).make.useForever
-                 .provideCustomLayer(ServerChannelFactory.auto ++ EventLoopGroup.auto())
-                 .fork
+//      fiber <- (Server.app(httpApp.silent) ++ Server.port(8765)).make.useForever
+//                 .provideCustomLayer(ServerChannelFactory.auto ++ EventLoopGroup.auto())
+//                 .fork
+      fiber <- Server.start(8765, httpApp).fork
       _     <- fi.join
       _     <- fiber.join
-    } yield ()).exitCode
+    } yield ()).provideEnvironment(DefaultServices.live).exitCode
 
   val getDesc: ZIO[System, ReadError[String], ConfigDescriptor[Database]] =
     for {
@@ -59,6 +60,8 @@ object HelloWorld extends ZIOAppDefault {
 
   val httpApp: HttpApp[Any, Nothing] = Http.collect[Request] { case Method.GET -> !! / "text" =>
     Response.text("Hello world")
+  case p@(Method.POST -> !! / "x") => println(p.data)
+    Response.ok
   }
 
   val myAppLogic: ZIO[Console, IOException, Unit] =
